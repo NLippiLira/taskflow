@@ -1,10 +1,12 @@
-import { getProjects, saveProjects } from "./storage.js";
-
-let projects = [];
-let activeProjectId = null;
+import {
+  getProjects,
+  saveProjects,
+  saveActiveProject,
+  getActiveProjectId
+} from "./storage.js";
 
 export function loadProjects() {
-  projects = getProjects();
+  let projects = getProjects();
 
   if (projects.length === 0) {
     const defaultProject = {
@@ -16,18 +18,17 @@ export function loadProjects() {
 
     projects = [defaultProject];
     saveProjects(projects);
+    saveActiveProject(defaultProject.id);
   }
 
-  activeProjectId = projects[0].id;
+  if (!getActiveProjectId()) {
+    saveActiveProject(projects[0].id);
+  }
 }
 
 export function getActiveProject() {
-  // 🔥 SIEMPRE sincroniza desde storage
-  projects = getProjects();
-  return projects.find(p => p.id === activeProjectId);
-}
+  const projects = getProjects();
+  const activeId = getActiveProjectId();
 
-export function updateProjects(updatedProjects) {
-  projects = updatedProjects;
-  saveProjects(projects);
+  return projects.find(p => p.id === activeId);
 }
