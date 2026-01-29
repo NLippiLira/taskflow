@@ -1,24 +1,34 @@
-import { getActiveProject, updateProjects } from "./projects.js";
+import { getProjects, saveProjects } from "./storage.js";
+import { getActiveProject } from "./projects.js";
 
 export function addTask(task) {
-  const project = getActiveProject();
+  const projects = getProjects();
+  const project = projects.find(p => p.id === getActiveProject().id);
+
   project.tasks.push(task);
-  updateProjects();
+  saveProjects(projects);
 }
 
 export function deleteTask(taskId) {
-  const project = getActiveProject();
+  const projects = getProjects();
+  const project = projects.find(p => p.id === getActiveProject().id);
+
   project.tasks = project.tasks.filter(t => t.id !== taskId);
-  updateProjects();
+  saveProjects(projects);
 }
 
 export function updateTask(updatedTask) {
-  const project = getActiveProject();
+  const projects = getProjects();
+  const project = projects.find(p => p.id === getActiveProject().id);
+
   const index = project.tasks.findIndex(t => t.id === updatedTask.id);
   project.tasks[index] = updatedTask;
-  updateProjects();
+
+  saveProjects(projects);
 }
 
 export function getTasks() {
-  return getActiveProject().tasks;
+  const projects = getProjects();
+  const project = projects.find(p => p.id === getActiveProject().id);
+  return project?.tasks || [];
 }

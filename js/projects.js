@@ -14,7 +14,7 @@ export function loadProjects() {
       tasks: []
     };
 
-    projects.push(defaultProject);
+    projects = [defaultProject];
     saveProjects(projects);
   }
 
@@ -22,9 +22,12 @@ export function loadProjects() {
 }
 
 export function getActiveProject() {
+  // 🔥 SIEMPRE sincroniza desde storage
+  projects = getProjects();
   return projects.find(p => p.id === activeProjectId);
 }
 
-export function updateProjects() {
+export function updateProjects(updatedProjects) {
+  projects = updatedProjects;
   saveProjects(projects);
 }
