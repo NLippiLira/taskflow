@@ -17,12 +17,22 @@ export function renderTasks() {
   }
 
   tasks.forEach(task => {
+    const badgeColor =
+      task.status === "done"
+        ? "success"
+        : task.status === "in-progress"
+        ? "warning"
+        : "secondary";
+
     const li = document.createElement("li");
     li.className = "list-group-item d-flex justify-content-between align-items-center";
 
     li.innerHTML = `
       <div>
         <strong>${task.title}</strong>
+        <span class="badge bg-${badgeColor} ms-2">
+          ${task.status}
+        </span>
         <div class="text-muted small">${task.description || ""}</div>
       </div>
       <button class="btn btn-sm btn-danger">
