@@ -1,0 +1,58 @@
+/* Layout */
+body {
+  padding-top: 70px;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.main-content {
+  max-width: 900px;
+}
+
+/* Cards tareas */
+.list-group-item {
+  border-radius: 12px;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.list-group-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Botón principal */
+.btn-primary {
+  border-radius: 30px;
+  padding: 8px 22px;
+}
+
+/* Empty state */
+.list-group-item.text-muted {
+  background: transparent;
+  border: 2px dashed #ced4da;
+}
+
+/* Dark mode (si ya lo tienes) */
+body.dark-mode {
+  background-color: #121212;
+  color: #eaeaea;
+}
+
+body.dark-mode .list-group-item {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.list-group-item {
+  animation: fadeInUp 0.3s ease;
+}
